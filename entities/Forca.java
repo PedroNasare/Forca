@@ -17,6 +17,8 @@ public class Forca{
 	char [] palavraAdivinhada = new char[palavraOculta.length()];
 	int nTentativas = 0;
 	
+	boolean letraEncontrada = false;
+	
 	public Forca() {
 	}
 	
@@ -44,20 +46,27 @@ public class Forca{
 		return sb.toString();
 	}
 	
+	public char[] setPalavraAdivinhada() {
+		for(int i=0; i < palavraOculta.length();i++) {
+			palavraAdivinhada[i] = palavraOculta.charAt(i);
+		}
+		return palavraAdivinhada;
+	}
+	
 	public char[] palpite(String letra) {
 		for(int i=0; i < palavraOculta.length();i++) {
-			char letras = palavraOculta.charAt(i);
-			char letraAdivinhada = palavraOculta.charAt(0);
-			
-			if(letra.equals(new String(palavraAdivinhada))) {
-				palavraAdivinhada[i] = letraAdivinhada;
-				return palavraAdivinhada;
+			if(letra.equals(palavraOculta)) {
+				letraEncontrada = true;
+				return setPalavraAdivinhada();
 			}
-			
-			if(letra.charAt(0) == palavraOculta.charAt(i)) {
-				palavraAdivinhada[i] = letras;
+			if(letra.length() == 1 && letra.charAt(0) == palavraOculta.charAt(i)) {
+				palavraAdivinhada[i] = letra.charAt(0);
+				letraEncontrada = true;
 			}
 		}
+			if(letraEncontrada == false && letra.length() > 1) {
+				System.out.println("Palavra incorreta! Tente novamente.");
+			}
 		return palavraAdivinhada;
 	}
 	
@@ -69,17 +78,12 @@ public class Forca{
 		return testFim() == true;
 	}
 	
-	public void tentativas() {
-		if(nTentativas > 6) {
-			setTestFim();
+	public boolean tentativas() {
+		if(getnTentativas() >= 10) {
+			return true;
 		}else {
-			nTentativas++;
+			 nTentativas++;
 		}
-		
+		return false;
 	}
-	public static void clearScreen() {  
-	    System.out.print("\033[H\033[2J");  
-	    System.out.flush();  
-	}  
-	
 }
