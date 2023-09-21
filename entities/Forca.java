@@ -15,7 +15,8 @@ public class Forca{
 	int palavra = random.nextInt(palavras.size());
 	String palavraOculta = palavras.get(palavra);
 	char [] palavraAdivinhada = new char[palavraOculta.length()];
-	int nTentativas = 0;
+	private int nTentativas = 0;
+	private int nDica = 0;
 	
 	boolean letraEncontrada = false;
 	
@@ -64,7 +65,7 @@ public class Forca{
 				letraEncontrada = true;
 			}
 		}
-			if(letraEncontrada == false && letra.length() > 1) {
+			if(letraEncontrada && letra.length() > 1) {
 				System.out.println("Palavra incorreta! Tente novamente.");
 			}
 		return palavraAdivinhada;
@@ -85,5 +86,23 @@ public class Forca{
 			 nTentativas++;
 		}
 		return false;
+	}
+	
+	public void PrintMatch() {
+		System.out.println("Bem-Vindo ao jogo da Forca!");
+		System.out.println("A palavra tem " + tela() + " letras.");
+		System.out.println();
+	}
+	
+	public char[] dica() {
+		if(nDica >= 1) {
+			System.out.println("Limite de dicas alcançado!");
+			setnTentativas(getnTentativas() - 1); 
+			return palavraAdivinhada;
+		}
+		int n = random.nextInt(palavraOculta.length());
+		palavraAdivinhada[n] = palavraOculta.charAt(n);
+		nDica++;
+		return palavraAdivinhada;
 	}
 }
