@@ -14,15 +14,16 @@ public class Forca{
 	
 	int palavra = random.nextInt(palavras.size());
 	String palavraOculta = palavras.get(palavra);
-	char [] palavraAdivinhada = new char[palavraOculta.length()];
+	char[] palavraAdivinhada = new char[palavraOculta.length()];
 	private int nTentativas = 0;
 	private int nDica = 0;
-	
-	boolean letraEncontrada = false;
 	
 	public Forca() {
 	}
 	
+	public String getPalavraAdivinhada() {
+		return String.valueOf(palavraAdivinhada);
+	}
 	public int getnTentativas() {
 		return nTentativas;
 	}
@@ -44,7 +45,7 @@ public class Forca{
 			char n = palavraAdivinhada[i] = '-';
 			sb.append(n);
 		}
-		return sb.toString();
+		return  sb.toString();
 	}
 	
 	public char[] setPalavraAdivinhada() {
@@ -55,6 +56,8 @@ public class Forca{
 	}
 	
 	public char[] palpite(String letra) {
+		boolean letraEncontrada = false;
+		
 		for(int i=0; i < palavraOculta.length();i++) {
 			if(letra.equals(palavraOculta)) {
 				letraEncontrada = true;
@@ -95,14 +98,30 @@ public class Forca{
 	}
 	
 	public char[] dica() {
+		List<Integer> letrasOcultas = new ArrayList<>();
+		
 		if(nDica >= 1) {
 			System.out.println("Limite de dicas alcançado!");
 			setnTentativas(getnTentativas() - 1); 
 			return palavraAdivinhada;
 		}
-		int n = random.nextInt(palavraOculta.length());
-		palavraAdivinhada[n] = palavraOculta.charAt(n);
+		for(int i=0;i < palavraOculta.length();i++) {
+			if(palavraAdivinhada[i] == '-') {
+				letrasOcultas.add(i);
+			}
+		}
+		Integer n = letrasOcultas.get(random.nextInt(letrasOcultas.size()));
+		for(int i=0;i < palavraOculta.length();i++) {
+			if(palavraOculta.charAt(i) == palavraOculta.charAt(n)) {
+				palavraAdivinhada[i] = palavraOculta.charAt(n);
+			}
+		}
+		if(palavraOculta.equals(String.valueOf(palavraAdivinhada))) {
+			System.out.println("Parabéns! Você acertou a palavra.");
+		}
 		nDica++;
+		
 		return palavraAdivinhada;
 	}
+	
 }
