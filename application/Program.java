@@ -6,19 +6,19 @@ import entities.Forca;
 public class Program {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Scanner input = new Scanner(System.in);
 		Forca forca = new Forca();
-			
-			forca.PrintMatch();
-			String n;
-			int nDica = 1;
+		
+		forca.PrintMatch();
+		String output;
+		int countHints = 1;
 			
 		while(!forca.testFim()) {
 			System.out.println("Número de tentativas: " + forca.getnTentativas());
-			System.out.println("Dicas disponiveis: " + nDica);
+			System.out.println("Dicas disponiveis: " + countHints);
 			System.out.print("Digite uma letra: ");
-			n = sc.next();
-			System.out.println(forca.palpite(n.toLowerCase()));
+			output = input.next();
+			System.out.println(forca.palpite(output.toLowerCase()));
 			System.out.println();
 			
 			if(forca.testFim()){
@@ -32,14 +32,13 @@ public class Program {
 				break;
 			}
 			
-			if(n.equals("dica")) {
+			if(output.equals("dica")) {
 				System.out.println("Dica: " + String.valueOf(forca.dica()));
-				if(nDica != 0) {
-					nDica--;
+				if(countHints != 0) {
+					countHints--;
 				}
 			}
-			
 		}
-		sc.close();
+		input.close();
 	}	
 }
