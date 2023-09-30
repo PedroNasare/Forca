@@ -8,19 +8,22 @@ public class Program {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		Forca forca = new Forca();
-		
+
 		forca.PrintMatch();
 		String output;
 		int countHints = 1;
-			
+
 		while(!forca.testFim()) {
+			if (forca.getnTentativas() >= 2) {
+				System.out.println("Tente novamente!");
+			}
 			System.out.println("Número de tentativas: " + forca.getnTentativas());
 			System.out.println("Dicas disponiveis: " + countHints);
 			System.out.print("Digite uma letra: ");
 			output = input.next();
 			System.out.println(forca.palpite(output.toLowerCase()));
 			System.out.println();
-			
+
 			if(forca.testFim()){
 				System.out.println("Parabéns! Você acertou a palavra.");
 				break;
@@ -31,7 +34,7 @@ public class Program {
 				System.out.println("A palavra era: " + forca.getPalavraOculta());
 				break;
 			}
-			
+
 			if(output.equals("dica")) {
 				System.out.println("Dica: " + String.valueOf(forca.dica()));
 				if(countHints != 0) {
@@ -40,5 +43,5 @@ public class Program {
 			}
 		}
 		input.close();
-	}	
+	}
 }
